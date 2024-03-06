@@ -128,6 +128,14 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.5.1</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.huaweicloud/esdk-obs-java-bundle -->
+            <!--华为云服务-->
+
+            <dependency>
+                <groupId>com.huaweicloud</groupId>
+                <artifactId>esdk-obs-java</artifactId>
+                <version>3.22.12</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

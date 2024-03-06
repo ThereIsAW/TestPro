@@ -6,3 +6,9 @@ sky:
     database: sky_take_out
     username: root
     password: 264783
+  huaweiobs:
+    huaweicloud-sdk-ak:
+    huaweicloud-sdk-sk:
+    endpoint:
+    bucket-name:
+    remote_prefix:
