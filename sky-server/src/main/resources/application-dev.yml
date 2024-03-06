@@ -7,8 +7,7 @@ sky:
     username: root
     password: 264783
   huaweiobs:
-    huaweicloud-sdk-ak:
-    huaweicloud-sdk-sk:
-    endpoint:
-    bucket-name:
-    remote_prefix:
+    huaweicloud-sdk-ak: CMLYTEVUWIEZJMAGM0QU
+    huaweicloud-sdk-sk: p2bUx6LvPQNnKmarIvej2GA2Zr6hPboMjtvuyasU
+    endpoint: cn-east-3a
+    bucket-name: pro-test-obs1

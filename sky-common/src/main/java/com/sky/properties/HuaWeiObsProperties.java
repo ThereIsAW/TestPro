@@ -12,7 +12,7 @@ public class HuaWeiObsProperties {
     private String huaweicloudSdkAk;
     private String huaweicloudSdkSk;
     private String endpoint;
-    private String bucketNamel;
+    private String bucketName;
     private String remotePrefix;
 
 }

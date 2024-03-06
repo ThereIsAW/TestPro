@@ -53,6 +53,11 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.huaweicloud/esdk-obs-java-bundle -->
+        <dependency>
+            <groupId>com.huaweicloud</groupId>
+            <artifactId>esdk-obs-java-bundle</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
