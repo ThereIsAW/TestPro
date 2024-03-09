@@ -9,5 +9,5 @@ sky:
   huaweiobs:
     huaweicloud-sdk-ak: CMLYTEVUWIEZJMAGM0QU
     huaweicloud-sdk-sk: p2bUx6LvPQNnKmarIvej2GA2Zr6hPboMjtvuyasU
-    endpoint: cn-east-3a
+    endpoint: obs.cn-east-3.myhuaweicloud.com
     bucket-name: pro-test-obs1

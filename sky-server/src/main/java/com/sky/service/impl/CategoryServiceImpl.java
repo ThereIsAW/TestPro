@@ -17,11 +17,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CategoryMapper categoryServiceMapper;
+    private CategoryMapper categoryMapper;
 
     @Autowired
     private DishMapper dishMapper;
@@ -44,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         PageHelper.startPage(categoryPageQueryDTO.getPage(),categoryPageQueryDTO.getPageSize());
 
-        Page<Category> page = categoryServiceMapper.page(category);
+        Page<Category> page = categoryMapper.page(category);
 
         return new PageResult(page.getTotal(),page.getResult());
     }
@@ -70,7 +72,7 @@ public class CategoryServiceImpl implements CategoryService {
         //category.setCreateUser(BaseContext.getCurrentId());
         //category.setUpdateUser(BaseContext.getCurrentId());
 
-        categoryServiceMapper.add(category);
+        categoryMapper.add(category);
 
     }
 
@@ -87,7 +89,7 @@ public class CategoryServiceImpl implements CategoryService {
         //category.setUpdateUser(BaseContext.getCurrentId());
         //category.setUpdateTime(LocalDateTime.now());
 
-        categoryServiceMapper.update(category);
+        categoryMapper.update(category);
     }
 
 
@@ -101,10 +103,14 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = Category.builder().status(status).id(id).build();
 
-        categoryServiceMapper.update(category);
+        categoryMapper.update(category);
     }
 
-
+     /**
+     *根据id删除分类
+     *@param id
+     * @return
+     */
     @Override
     public void deleteById(Long id) {
 
@@ -114,12 +120,25 @@ public class CategoryServiceImpl implements CategoryService {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
         }
 
+
         count = setmealMapper.countByCategoryId(id);
         if(count > 0){
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
         }
 
 
+    }
+
+    /**
+     * 查询所有菜品分类
+     * @return
+     */
+    @Override
+    public List<Category> queryCategory(Integer type) {
+
+        List<Category> categoryList = categoryMapper.queryCategory(type);
+
+        return categoryList;
     }
 
 }

@@ -7,6 +7,8 @@ import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface CategoryMapper {
     /**
@@ -33,4 +35,11 @@ public interface CategoryMapper {
     @AutoFill(OperationType.UPDATE)
     void update(Category category);
 
+
+    /**
+     * 查询所有菜品分类
+     * @param type
+     * @return
+     */
+    List<Category> queryCategory(Integer type);
 }

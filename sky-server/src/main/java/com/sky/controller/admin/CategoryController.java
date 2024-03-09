@@ -2,6 +2,7 @@ package com.sky.controller.admin;
 
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -11,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 分类管理
@@ -92,6 +95,19 @@ public class CategoryController {
         categoryService.deleteById(id);
 
         return Result.success();
+    }
+
+    /**
+     * 查询所有菜品分类 用于添加菜品功能模块
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("查询所有菜品分类")
+    public Result<List> queryCategory(Integer type){
+
+        List<Category> categoryList = categoryService.queryCategory(type);
+
+        return Result.success(categoryList);
     }
 
 

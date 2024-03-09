@@ -30,30 +30,24 @@ public class HuaWeiObsUtil {
         ObsClient obsClient = new ObsClient(HUAWEICLOUD_SDK_AK, HUAWEICLOUD_SDK_SK, endpoint);
 
         StringBuilder stringBuilder = new StringBuilder("https://");
+        //获取文件后缀名
+        String name = file.getName();
+        String remotePrefix = name.substring(name.lastIndexOf("."));
 
-        File[] files = file.listFiles();
-        for (File f : files) {
-            if (f.isDirectory()) {
-                uploadFiles(f);
-                continue;
-            }
+        int pathLength = file.getCanonicalPath().lastIndexOf("\\") + 1 ;
 
-            //获取文件后缀名
-            String name = file.getName();
-            String remotePrefix = name.substring(name.lastIndexOf("."));
+        String objectKey = file.getCanonicalPath().substring(pathLength);
 
-            String objectKey = remotePrefix  + f.getCanonicalPath().substring(file.getName().length()).replace(File.separator, "/");
-
-            System.out.println("Start to upload " + f.getCanonicalPath() + " to OBS, using objectKey: " + objectKey);
-            UploadFileRequest request = new UploadFileRequest(bucketName, objectKey);
-            request.setUploadFile(f.getCanonicalPath());
-            request.setEncodingType("url");
-            try {
-                obsClient.uploadFile(request);
-            } catch (ObsException e) {
-                failedList.add(f.getCanonicalPath());
-            }
+        System.out.println("Start to upload " + file.getCanonicalPath() + " to OBS, using objectKey: " + objectKey);
+        UploadFileRequest request = new UploadFileRequest(bucketName, objectKey);
+        request.setUploadFile(file.getCanonicalPath());
+        request.setEncodingType("url");
+        try {
+            obsClient.uploadFile(request);
+        } catch (ObsException e) {
+            failedList.add(file.getCanonicalPath());
         }
+
 
         failedList.forEach(item -> System.out.println("Failed to upload " + item + ", please try again"));
 
@@ -63,6 +57,7 @@ public class HuaWeiObsUtil {
         return stringBuilder.toString();
     }
 }
+
 
 
 

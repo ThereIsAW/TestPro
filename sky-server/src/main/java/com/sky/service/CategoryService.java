@@ -2,7 +2,10 @@ package com.sky.service;
 
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.result.PageResult;
+
+import java.util.List;
 
 public interface CategoryService {
 
@@ -40,4 +43,9 @@ public interface CategoryService {
      */
     void deleteById(Long id);
 
+    /**
+     * 查询所有菜品分类
+     * @return
+     */
+    List<Category> queryCategory(Integer type);
 }

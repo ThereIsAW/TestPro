@@ -22,4 +22,7 @@
         </where>
         order by sort
     </select>
+    <select id="queryCategory" resultType="Category">
+        select * from category where type = #{type} order by sort
+    </select>
 </mapper>
