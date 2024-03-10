@@ -8,4 +8,14 @@
         (#{name},#{categoryId},#{price},#{image},#{description},#{status},#{createUser},#{createTime},#{updateTime},#{updateUser})
     </insert>
 
+    <select id="query" resultType="com.sky.vo.DishVO">
+        select di.*,ca.name as categoryName from dish di left join category ca on di.category_id = ca.id
+        <where>
+            <if test="name != null">and di.name like contant(%,#{name},%) </if>
+            <if test="categoryId != null">and di.categoryId = #{categoryId}</if>
+            <if test="status != null">and di.status = #{status}</if>
+        </where>
+        order by create_time desc
+    </select>
+
 </mapper>
