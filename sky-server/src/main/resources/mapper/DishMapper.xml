@@ -18,4 +18,49 @@
         order by create_time desc
     </select>
 
+    <select id="queryAll" resultType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="name != null">and name like contant(%,#{name},%) </if>
+            <if test="categoryId != null">and category_id = #{categoryId}</if>
+            <if test="status != null">and status = #{status}</if>
+            <if test="id != null">and id = #{id}</if>
+            <if test="price != null">and price = #{price}</if>
+            <if test="image != null">and image = #{image}</if>
+            <if test="description != null">and description like contant(%,#{description},%) </if>
+            <if test="createTime != null">and create_time = #{createTime}</if>
+            <if test="createUser != null">and create_user = #{createUser}</if>
+            <if test="updateTime != null">and update_time = #{updateTime}</if>
+            <if test="updateUSer != null">and update_user = #{createUser}</if>
+        </where>
+    </select>
+
+    <select id="bulkQueriesById" resultType="com.sky.entity.Dish">
+        select * from dish where id in
+        <foreach collection="DishIds" separator="," item="DishId" close=")" open="(">
+            #{DishId}
+        </foreach>
+    </select>
+
+    <delete id="deleteByIds">
+        delete * from dish where id in
+        <foreach collection="DishIds" separator="," item="DishId" close=")" open="(">
+            #{DishId}
+        </foreach>
+    </delete>
+
+    <update id="updateById" >
+        update dish
+        <set>
+            <if test="name != null">name = #{name}, </if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="id != null">id = #{id},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>
