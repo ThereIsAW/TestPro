@@ -15,9 +15,81 @@
     </select>
 
     <delete id="deleteByDishIds">
-        delete from setmeal where id in
+        delete from setmeal_dish where dish_id in
         <foreach collection="dishIds" open="(" close=")" item="dishId" separator=",">
             #{dishId}
+        </foreach>
+    </delete>
+
+    <select id="page" resultType="com.sky.vo.SetmealVO">
+        select se.*,ca.name as category_name from setmeal se left join category ca on se.category_id = ca.id
+        <where>
+            <if test="name != null" >and se.name = #{name}</if>
+            <if test="categoryId != null">and se.category_id = #{categoryId}</if>
+            <if test="status != null">and se.status = #{status}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="queryWithDish" resultType="setmealDish">
+       select * from setmeal_dish where setmeal_id in #{setmealId}
+    </select>
+
+    <update id="update">
+        update setmeal
+        <set>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="image != null">image = #{image},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="addwithDishId" >
+        insert into setmeal_dish(setmeal_id,dish_id,price,copies)
+        values
+        <foreach collection="setmealDishes" item="meal_dish" open="(" close=")" separator=",">
+            #{meal_dish.setmealId},#{meal_dish.dishId},#{meal_dish.price},#{meal_dish.copies}
+        </foreach>
+    </insert>
+
+    <resultMap id="setMealVO" type="com.sky.vo.SetmealVO">
+        <id column="id" property="id"></id>
+        <result column="category_id" property="categoryId"></result>
+        <result column="name" property="name"></result>
+        <result column="price" property="price"></result>
+        <result column="status" property="status"></result>
+        <result column="description" property="description"></result>
+        <result column="image" property="image"></result>
+        <result column="updateTime" property="updateTime"></result>
+        <association column="category_id" property="categoryName" select="com.sky.mapper.CategoryMapper.queryById"></association>
+        <association column="id" property="setmealDishes" select="queryWithDish"></association>
+    </resultMap>
+
+    <select id="queryAll" resultMap="setMealVO" >
+        select * from setmeal where id = #{id}
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into setmeal(category_id,name,price,status,description,image)
+        values
+        (#{categoryId},#{name},#{price},#{status},#{description},#{image})
+    </insert>
+
+    <delete id="batchDeletion">
+        delete from setmeal where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteBySetmealIds">
+        delete from setmeal_dish where setmeal_id in
+        <foreach collection="SetmealIds" open="(" close=")" item="setmealIds" separator=",">
+            #{setmealIds}
         </foreach>
     </delete>
 </mapper>

@@ -14,6 +14,7 @@
         </set>
         where id = #{id}
     </update>
+
     <select id="page" parameterType="Category" resultType="Category">
         select * from category
         <where>
@@ -22,7 +23,13 @@
         </where>
         order by sort
     </select>
+
     <select id="queryCategory" resultType="Category">
         select * from category where type = #{type} order by sort
     </select>
+
+    <select id="queryById" >
+        select * from category where id = #{categoryId}
+    </select>
+
 </mapper>

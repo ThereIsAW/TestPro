@@ -46,9 +46,9 @@ public class SetMealController {
     @ApiOperation("根据id修改套餐")
     public Result updateMeal(@RequestBody SetmealDTO setmealDTO){
 
-        setMealService.update(setmealDTO);
+        SetmealVO setmealVO = setMealService.update(setmealDTO);
 
-        return Result.success();
+        return Result.success(setmealVO);
     }
 
     /**
