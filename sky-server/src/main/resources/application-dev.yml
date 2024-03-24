@@ -6,6 +6,11 @@ sky:
     database: sky_take_out
     username: root
     password: 264783
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+
   huaweiobs:
     huaweicloud-sdk-ak: CMLYTEVUWIEZJMAGM0QU
     huaweicloud-sdk-sk: p2bUx6LvPQNnKmarIvej2GA2Zr6hPboMjtvuyasU
