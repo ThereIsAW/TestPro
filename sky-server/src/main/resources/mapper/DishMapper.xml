@@ -31,7 +31,7 @@
             <if test="createTime != null">and create_time = #{createTime}</if>
             <if test="createUser != null">and create_user = #{createUser}</if>
             <if test="updateTime != null">and update_time = #{updateTime}</if>
-            <if test="updateUSer != null">and update_user = #{createUser}</if>
+            <if test="updateUser != null">and update_user = #{createUser}</if>
         </where>
     </select>
 
@@ -62,5 +62,6 @@
         </set>
         where id = #{id}
     </update>
+
 
 </mapper>

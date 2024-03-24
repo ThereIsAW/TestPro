@@ -32,7 +32,7 @@
     </select>
 
     <select id="queryWithDish" resultType="setmealDish">
-       select * from setmeal_dish where setmeal_id in #{setmealId}
+       select * from setmeal_dish where setmeal_id = #{setmealId}
     </select>
 
     <update id="update">
@@ -44,6 +44,8 @@
             <if test="status != null">status = #{status},</if>
             <if test="description != null">description = #{description},</if>
             <if test="image != null">image = #{image},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
         </set>
         where id = #{id}
     </update>
@@ -51,8 +53,8 @@
     <insert id="addwithDishId" >
         insert into setmeal_dish(setmeal_id,dish_id,price,copies)
         values
-        <foreach collection="setmealDishes" item="meal_dish" open="(" close=")" separator=",">
-            #{meal_dish.setmealId},#{meal_dish.dishId},#{meal_dish.price},#{meal_dish.copies}
+        <foreach collection="setmealDishes" item="meal_dish" separator=",">
+            (#{meal_dish.setmealId},#{meal_dish.dishId},#{meal_dish.price},#{meal_dish.copies})
         </foreach>
     </insert>
 
@@ -65,8 +67,8 @@
         <result column="description" property="description"></result>
         <result column="image" property="image"></result>
         <result column="updateTime" property="updateTime"></result>
-        <association column="category_id" property="categoryName" select="com.sky.mapper.CategoryMapper.queryById"></association>
-        <association column="id" property="setmealDishes" select="queryWithDish"></association>
+        <association column="category_id" property="categoryName" select="com.sky.mapper.CategoryMapper.queryNameById" javaType="string"></association>
+        <association column="id" property="setmealDishes" select="queryWithDish" javaType="list"></association>
     </resultMap>
 
     <select id="queryAll" resultMap="setMealVO" >
@@ -74,9 +76,9 @@
     </select>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into setmeal(category_id,name,price,status,description,image)
+        insert into setmeal(category_id,name,price,status,description,image,create_time,update_time,create_user,update_user)
         values
-        (#{categoryId},#{name},#{price},#{status},#{description},#{image})
+        (#{categoryId},#{name},#{price},#{status},#{description},#{image},#{createTime},#{updateTime},#{createUser},#{updateUser})
     </insert>
 
     <delete id="batchDeletion">
@@ -88,8 +90,15 @@
 
     <delete id="deleteBySetmealIds">
         delete from setmeal_dish where setmeal_id in
-        <foreach collection="SetmealIds" open="(" close=")" item="setmealIds" separator=",">
+        <foreach collection="setmealIds" open="(" close=")" item="setmealIds" separator=",">
             #{setmealIds}
         </foreach>
     </delete>
+
+    <select id="batchQuery" resultType="setmeal">
+        select * from setmeal where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

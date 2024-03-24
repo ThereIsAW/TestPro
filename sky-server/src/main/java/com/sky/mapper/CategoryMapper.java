@@ -6,6 +6,7 @@ import com.sky.entity.Category;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -50,4 +51,12 @@ public interface CategoryMapper {
      */
 
     Category queryById(Long categoryId);
+
+    /**
+     * 根据id查询名字
+     * @param id
+     * @return
+     */
+    @Select("select name from category where id = #{id}")
+    String queryNameById(Long id);
 }

@@ -86,4 +86,7 @@ public interface SetMealMapper {
      * @param setmealIds
      */
     void deleteBySetmealIds(List<Long> setmealIds);
+
+
+    List<Setmeal> batchQuery(List<Long> ids);
 }
