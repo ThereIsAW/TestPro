@@ -17,6 +17,8 @@ public class RedisConfiguration {
         log.info("开始创建redis模板类.............");
 
         RedisTemplate redisTemplate = new RedisTemplate();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+
         redisTemplate.setKeySerializer(new StringRedisSerializer());
 
         return redisTemplate;
